@@ -1,0 +1,2 @@
+D:\faculta\s1\Limbaje formale si tehnici de compilare\LFTCLAB5\LFTCLab5\LFTCLab5\obj\Debug\LFTCLab5.csprojAssemblyReference.cache
+D:\faculta\s1\Limbaje formale si tehnici de compilare\LFTCLAB5\LFTCLab5\LFTCLab5\obj\Debug\LFTCLab5.csproj.CoreCompileInputs.cache

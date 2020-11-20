@@ -6,13 +6,7 @@ using System.Threading.Tasks;
 
 namespace LFTCLab5
 {
-    class Program
+    class Parser
     {
-        static void Main(string[] args)
-        {
-
-
-        }
-        
     }
 }
