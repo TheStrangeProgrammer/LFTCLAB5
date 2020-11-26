@@ -1,2 +1,9 @@
 D:\faculta\s1\Limbaje formale si tehnici de compilare\LFTCLAB5\LFTCLab5\LFTCLab5\obj\Debug\LFTCLab5.csprojAssemblyReference.cache
 D:\faculta\s1\Limbaje formale si tehnici de compilare\LFTCLAB5\LFTCLab5\LFTCLab5\obj\Debug\LFTCLab5.csproj.CoreCompileInputs.cache
+C:\Users\Johnny\source\repos\LFTCLab5\LFTCLab5\bin\Debug\LFTCLab5.exe.config
+C:\Users\Johnny\source\repos\LFTCLab5\LFTCLab5\bin\Debug\LFTCLab5.exe
+C:\Users\Johnny\source\repos\LFTCLab5\LFTCLab5\bin\Debug\LFTCLab5.pdb
+C:\Users\Johnny\source\repos\LFTCLab5\LFTCLab5\obj\Debug\LFTCLab5.csprojAssemblyReference.cache
+C:\Users\Johnny\source\repos\LFTCLab5\LFTCLab5\obj\Debug\LFTCLab5.csproj.CoreCompileInputs.cache
+C:\Users\Johnny\source\repos\LFTCLab5\LFTCLab5\obj\Debug\LFTCLab5.exe
+C:\Users\Johnny\source\repos\LFTCLab5\LFTCLab5\obj\Debug\LFTCLab5.pdb

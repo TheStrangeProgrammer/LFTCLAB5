@@ -8,5 +8,10 @@ namespace LFTCLab5
 {
     class Parser
     {
+        public Grammar grammar;
+
+
+
+
     }
 }
