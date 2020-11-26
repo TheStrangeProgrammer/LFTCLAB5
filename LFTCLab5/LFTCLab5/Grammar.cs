@@ -19,7 +19,7 @@ namespace LFTCLab5
         {
 
             
-            string text = File.ReadAllText(@"grammar.txt");
+            string text = File.ReadAllText(@"../../grammar.txt");
           
             text = text.Replace("\r", "");
             string[] splits = text.Split('\n');
@@ -30,7 +30,7 @@ namespace LFTCLab5
                 {
                     string[] splitGrammar = splits[i].Split(new char[] { '-', '>'}) ;
                     nonterminals.Add(splitGrammar[0]);
-                    string[] splitProductions = splitGrammar[1].Split('|');
+                    string[] splitProductions = splitGrammar[2].Split('|');
                     productions.AddRange(splitProductions);
                     foreach(string splitProduction in splitProductions)
                     {
@@ -52,21 +52,21 @@ namespace LFTCLab5
 
         public void print_nonterminals()
         {
-            System.Console.Write("Nonterminals:");
+           Console.WriteLine("Nonterminals:");
             foreach (string x in this.nonterminals)
-                System.Console.Write(x+ " ");
+                Console.Write(x+ " ");
         }
         public void print_terminals()
         {
-            System.Console.Write("terminals:");
+            Console.WriteLine("terminals:");
             foreach (string x in this.terminals)
-                System.Console.Write(x + " ");
+                Console.Write(x + " ");
         }
         public void print_productions()
         {
-            System.Console.Write("Productions:");
+            Console.WriteLine("Productions:");
             foreach (string x in this.productions)
-                System.Console.Write(x + " ");
+                Console.Write(x + " ");
         }
     }
 }

@@ -10,8 +10,29 @@ namespace LFTCLab5
     {
         public Grammar grammar;
 
+        public void Expand()
+        {
 
+        }
+        public void Advance()
+        {
 
+        }
+        public void MomentaryInsuccess()
+        {
 
+        }
+        public void Back()
+        {
+
+        }
+        public void AnotherTry()
+        {
+
+        }
+        public void Success()
+        {
+
+        }
     }
 }

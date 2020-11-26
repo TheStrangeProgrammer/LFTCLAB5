@@ -7,3 +7,8 @@ C:\Users\Johnny\source\repos\LFTCLab5\LFTCLab5\obj\Debug\LFTCLab5.csprojAssembly
 C:\Users\Johnny\source\repos\LFTCLab5\LFTCLab5\obj\Debug\LFTCLab5.csproj.CoreCompileInputs.cache
 C:\Users\Johnny\source\repos\LFTCLab5\LFTCLab5\obj\Debug\LFTCLab5.exe
 C:\Users\Johnny\source\repos\LFTCLab5\LFTCLab5\obj\Debug\LFTCLab5.pdb
+D:\faculta\s1\Limbaje formale si tehnici de compilare\LFTCLAB5\LFTCLab5\LFTCLab5\bin\Debug\LFTCLab5.exe.config
+D:\faculta\s1\Limbaje formale si tehnici de compilare\LFTCLAB5\LFTCLab5\LFTCLab5\bin\Debug\LFTCLab5.exe
+D:\faculta\s1\Limbaje formale si tehnici de compilare\LFTCLAB5\LFTCLab5\LFTCLab5\bin\Debug\LFTCLab5.pdb
+D:\faculta\s1\Limbaje formale si tehnici de compilare\LFTCLAB5\LFTCLab5\LFTCLab5\obj\Debug\LFTCLab5.exe
+D:\faculta\s1\Limbaje formale si tehnici de compilare\LFTCLAB5\LFTCLab5\LFTCLab5\obj\Debug\LFTCLab5.pdb

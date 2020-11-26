@@ -1,2 +1,2 @@
-﻿S->bS|aSb|c
-W=aacbb
+﻿S->bS|aA|c
+A->p
