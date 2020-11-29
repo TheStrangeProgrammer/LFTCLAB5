@@ -11,9 +11,10 @@ namespace LFTCLab5
    
     class Grammar
     {
-        public List<string> nonterminals= new List<string>();
-        public List<string> terminals = new List<string>();
-        public Dictionary<string,List<string>> productions = new Dictionary<string, List<string>>();
+        Nonterminal source;
+        public List<Nonterminal> nonterminals= new List<Nonterminal>();
+        public List<Terminal> terminals = new List<Terminal>();
+        public List<Production> productions = new List<Production>();
        
        public void ReadFile()
         {
@@ -29,15 +30,27 @@ namespace LFTCLab5
                 if (splits[i].Contains("->"))
                 {
                     string[] splitGrammar = splits[i].Split(new char[] { '-', '>'});
-                    nonterminals.Add(splitGrammar[0]);
+                    nonterminals.Add(new Nonterminal(splitGrammar[0]));
                     string[] splitProductions = splitGrammar[2].Split('|');
-                    productions.Add(splitGrammar[0], splitProductions.ToList());
-                    foreach(string splitProduction in splitProductions)
+                    List<Token> tokens = new List<Token>();
+                    foreach(string production in splitProductions)
+                    {
+                        foreach (char token in production.ToCharArray())
+                        {
+                            if(char.IsUpper(token))
+                                tokens.Add(new Nonterminal(token.ToString()));
+                            else if(char.IsLower(token))
+                                tokens.Add(new Terminal(token.ToString()));
+                        }
+
+                    }
+                    productions.Add(new Production(new Nonterminal(splitGrammar[0]), tokens));
+                    foreach (string splitProduction in splitProductions)
                     {
                         foreach(char character in splitProduction.ToCharArray())
                         {
-                            if(!terminals.Contains(character.ToString())&& char.IsLower(character))
-                                terminals.Add(character.ToString());
+                            if(!terminals.Contains(new Terminal(character.ToString()))&& char.IsLower(character))
+                                terminals.Add(new Terminal(character.ToString()));
                         }
                     }
 
@@ -48,9 +61,9 @@ namespace LFTCLab5
 
         }
 
-        public List<string> GetProductionsForNonTerminal(string nonTerminal)
+        public List<Production> GetProductionsForNonTerminal(string nonTerminal)
         {
-            return productions[nonTerminal];
+            return productions.Where(production => production.source == new Nonterminal(nonTerminal)).ToList();
         }
 
 

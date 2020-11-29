@@ -59,8 +59,7 @@ namespace LFTCLab5
             }
             else if (input == "p")
             {
-                foreach(List<string> productions in grammar.productions.Values)
-                 Console.WriteLine(string.Join(",", productions));
+                Console.WriteLine(string.Join(",", grammar.productions));
             }
             else {
                 Console.WriteLine(string.Join(",", grammar.GetProductionsForNonTerminal(input)));
