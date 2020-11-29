@@ -8,29 +8,43 @@ namespace LFTCLab5
 {
     class Parser
     {
-        public Grammar grammar;
-
-        public void Expand()
+        private Grammar grammar;
+        public Parser(Grammar grammar)
         {
-
+            this.grammar = grammar;
         }
-        public void Advance()
+
+        public void Expand(Configuration configuration)
         {
-
+            string production = grammar.GetProductionsForNonTerminal(configuration.beta.Peek()).First();
+            configuration.alpha.Push(production);
+            configuration.beta.Pop();
+            configuration.beta.Push(production);
         }
-        public void MomentaryInsuccess()
+        public void Advance(Configuration configuration)
         {
-
+            configuration.position += 1;
+            configuration.alpha.Push(configuration.beta.Pop());
         }
-        public void Back()
+        public void MomentaryInsuccess(Configuration configuration)
         {
-
+            configuration.state = "b";
         }
-        public void AnotherTry()
+        public void Back(Configuration configuration)
         {
-
+            configuration.position -= 1;
+            configuration.beta.Push(configuration.alpha.Pop());
         }
-        public void Success()
+        public void AnotherTry(Configuration configuration)
+        {
+            configuration.state = "q";
+            configuration.alpha.Pop();
+            configuration.beta.Pop();
+            configuration.currentProduction += 1;
+            string production = grammar.GetProductionsForNonTerminal(configuration.beta.Peek())[configuration.currentProduction];
+            configuration.beta.Push(production);
+        }
+        public void Success(Configuration configuration)
         {
 
         }

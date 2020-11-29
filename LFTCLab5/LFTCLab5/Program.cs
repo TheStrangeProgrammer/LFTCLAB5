@@ -10,27 +10,61 @@ namespace LFTCLab5
 {
     class Program
     {
+        private static Grammar grammar;
+        static void Help()
+        {
+
+        }
         static void Main(string[] args)
         {
-            while (true)
+            grammar = new Grammar();
+            grammar.ReadFile();
+            bool run=true;
+            string input;
+            while (run)
             {
-                int input = 0;
-
-                if (input == 0)
+                input = Console.ReadLine();
+                switch (input)
                 {
-                    Grammar gramatik = new Grammar { };
-                    gramatik.ReadFile();
-                    gramatik.print_nonterminals();
-                    gramatik.print_terminals();
-                    gramatik.print_productions();
+                    case "print":
+                        GetTypeOfPrint();
+                        break;
+                    case "4":
+                        break;
+                    case "5":
+                        break;
+                    case "help":
+                        Help();
+                        break;
+                    case "exit":
+                        run = false;
+                        break;
                 }
-                else break;
-
-                input = System.Console.Read();
-
 
             }
         }
-        
+
+        private static void GetTypeOfPrint()
+        {
+            string input;
+            input = Console.ReadLine();
+            if (input == "nt")
+            {
+                Console.WriteLine(string.Join(",", grammar.nonterminals));
+            }
+            else if (input == "t")
+            {
+                Console.WriteLine(string.Join(",", grammar.terminals));
+
+            }
+            else if (input == "p")
+            {
+                foreach(List<string> productions in grammar.productions.Values)
+                 Console.WriteLine(string.Join(",", productions));
+            }
+            else {
+                Console.WriteLine(string.Join(",", grammar.GetProductionsForNonTerminal(input)));
+            }
+        }
     }
 }
