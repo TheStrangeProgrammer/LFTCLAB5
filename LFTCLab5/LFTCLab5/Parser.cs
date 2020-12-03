@@ -13,7 +13,51 @@ namespace LFTCLab5
         {
             this.grammar = grammar;
         }
+        public bool Parse(string toParse)
+        {
+            Configuration config = new Configuration(grammar.startingSymbol);
+            int n = 0;
+            while (config.state !="f"&& config.state != "e")
+            {
+                if(config.state == "q")
+                {
+                    if (config.beta.Count == 0&&config.position==n+1)
+                    {
+                        Success(config);
+                    }
+                    else
+                    {
+                        if (config.beta.Peek().isTerminal())
+                            Expand(config);
+                        else if (config.beta.Peek().isNonterminal())
+                            Advance(config);
+                        else
+                            MomentaryInsuccess(config);
+                    }
+                }
+                else
+                {
+                    if (config.state == "b")
+                    {
+                        if (config.alpha.Peek().Value.isNonterminal())
+                        {
+                            Back(config);
+                        }
+                        else
+                        {
+                            AnotherTry(config);
+                        }
 
+                    }
+                        
+
+                }
+            }
+
+            if (config.state == "e")
+                return false;
+            return true;
+        }
         public void Expand(Configuration configuration)
         {
             Production production = grammar.GetProductionsForNonTerminal((Nonterminal)configuration.beta.Peek()).First();

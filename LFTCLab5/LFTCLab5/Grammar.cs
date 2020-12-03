@@ -11,7 +11,7 @@ namespace LFTCLab5
    
     class Grammar
     {
-        Nonterminal source;
+        public Nonterminal startingSymbol;
         public List<Nonterminal> nonterminals= new List<Nonterminal>();
         public List<Terminal> terminals = new List<Terminal>();
         public List<Production> productions = new List<Production>();
@@ -59,7 +59,7 @@ namespace LFTCLab5
                 //if (splits[i].Contains("="))
                
             }
-
+            startingSymbol = nonterminals[0];
         }
 
         public List<Production> GetProductionsForNonTerminal(Nonterminal nonTerminal)

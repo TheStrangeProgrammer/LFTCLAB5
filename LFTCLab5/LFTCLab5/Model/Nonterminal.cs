@@ -11,5 +11,13 @@ namespace LFTCLab5
         public Nonterminal(string name) : base(name)
         {
         }
+        public override bool isTerminal()
+        {
+            return false;
+        }
+        public override bool isNonterminal()
+        {
+            return true;
+        }
     }
 }

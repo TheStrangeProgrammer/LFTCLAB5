@@ -12,5 +12,14 @@ namespace LFTCLab5
         public int position;
         public Stack<KeyValuePair<int,Token>> alpha;
         public Stack<Token> beta;
+
+        public Configuration(Nonterminal startingSymbol)
+        {
+            state = "q";
+            position = 1;
+            alpha = new Stack<KeyValuePair<int, Token>>();
+            beta = new Stack<Token>(); 
+            beta.Push(startingSymbol);
+        }
     }
 }

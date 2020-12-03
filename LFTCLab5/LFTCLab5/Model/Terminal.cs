@@ -11,5 +11,13 @@ namespace LFTCLab5
         public Terminal(string name) : base(name)
         {
         }
+        public override bool isTerminal()
+        {
+            return true;
+        }
+        public override bool isNonterminal()
+        {
+            return false;
+        }
     }
 }
