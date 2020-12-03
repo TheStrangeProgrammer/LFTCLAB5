@@ -16,5 +16,14 @@ namespace LFTCLab5
             this.source = source;
             this.tokens = tokens;
         }
+        public override string ToString()
+        {
+            string toPrint= source.ToString() + "->";
+            foreach(Token token in tokens)
+            {
+                toPrint += token.ToString();
+            }
+            return toPrint;
+        }
     }
 }

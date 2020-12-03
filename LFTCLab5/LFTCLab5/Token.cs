@@ -13,5 +13,14 @@ namespace LFTCLab5
             this.name = name;
         }
         public string name;
+
+        public override bool Equals(object obj)
+        {
+            return name == ((Token)obj).name;
+        }
+        public override string ToString()
+        {
+            return name;
+        }
     }
 }

@@ -16,15 +16,21 @@ namespace LFTCLab5
 
         public void Expand(Configuration configuration)
         {
-            Production production = grammar.GetProductionsForNonTerminal(configuration.beta.Peek()).First();
-            configuration.alpha.Push(new KeyValuePair<int, string> ( 1, production ));
+            Production production = grammar.GetProductionsForNonTerminal((Nonterminal)configuration.beta.Peek()).First();
             configuration.beta.Pop();
-            configuration.beta.Push(production);
+            foreach (Token token in production.tokens)
+            {
+                configuration.alpha.Push(new KeyValuePair<int, Token>(1, token));
+                configuration.beta.Push(token);
+            }
+            
+            
+            
         }
         public void Advance(Configuration configuration)
         {
             configuration.position += 1;
-            configuration.alpha.Push(new KeyValuePair<int, string>(configuration.alpha.Peek().Key, configuration.beta.Pop()));
+            configuration.alpha.Push(new KeyValuePair<int, Token>(configuration.alpha.Peek().Key, configuration.beta.Pop()));
         }
         public void MomentaryInsuccess(Configuration configuration)
         {
@@ -38,26 +44,29 @@ namespace LFTCLab5
         public void AnotherTry(Configuration configuration)
         {
             
-            if (grammar.GetProductionsForNonTerminal(configuration.beta.Peek()).ElementAtOrDefault(configuration.alpha.Peek().Key + 1) != null) 
+            if (grammar.GetProductionsForNonTerminal((Nonterminal)configuration.beta.Peek()).ElementAtOrDefault(configuration.alpha.Peek().Key + 1) != null) 
             {
                 configuration.state = "q";
                 configuration.alpha.Pop();
                 configuration.beta.Pop();
 
-                string production = grammar.GetProductionsForNonTerminal(configuration.beta.Peek())[configuration.alpha.Peek().Key + 1];
-
-                configuration.alpha.Push(new KeyValuePair<int, string>(configuration.alpha.Peek().Key, production));
-                configuration.beta.Push(production);
+                Production production = grammar.GetProductionsForNonTerminal((Nonterminal)configuration.beta.Peek())[configuration.alpha.Peek().Key + 1];
+                foreach (Token token in production.tokens)
+                {
+                    configuration.alpha.Push(new KeyValuePair<int, Token>(configuration.alpha.Peek().Key + 1, token));
+                    configuration.beta.Push(token);
+                }
+                
             }
             else
             {
-                if (configuration.position == 1&& configuration.alpha.Peek()=="S")
+                if (configuration.position == 1&& configuration.alpha.Peek().Value.Equals(new Token("S")))
                 {
                     configuration.state = "e";
                 }
                 else
                 {
-                    configuration.beta.Push(configuration.alpha.Pop());
+                    configuration.beta.Push(configuration.alpha.Pop().Value);
                 }
             }
 

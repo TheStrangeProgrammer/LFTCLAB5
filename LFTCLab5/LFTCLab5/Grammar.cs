@@ -32,9 +32,10 @@ namespace LFTCLab5
                     string[] splitGrammar = splits[i].Split(new char[] { '-', '>'});
                     nonterminals.Add(new Nonterminal(splitGrammar[0]));
                     string[] splitProductions = splitGrammar[2].Split('|');
-                    List<Token> tokens = new List<Token>();
+                    
                     foreach(string production in splitProductions)
                     {
+                        List<Token> tokens = new List<Token>();
                         foreach (char token in production.ToCharArray())
                         {
                             if(char.IsUpper(token))
@@ -42,9 +43,9 @@ namespace LFTCLab5
                             else if(char.IsLower(token))
                                 tokens.Add(new Terminal(token.ToString()));
                         }
-
+                        productions.Add(new Production(new Nonterminal(splitGrammar[0]), tokens));
                     }
-                    productions.Add(new Production(new Nonterminal(splitGrammar[0]), tokens));
+                    
                     foreach (string splitProduction in splitProductions)
                     {
                         foreach(char character in splitProduction.ToCharArray())
@@ -61,9 +62,9 @@ namespace LFTCLab5
 
         }
 
-        public List<Production> GetProductionsForNonTerminal(string nonTerminal)
+        public List<Production> GetProductionsForNonTerminal(Nonterminal nonTerminal)
         {
-            return productions.Where(production => production.source == new Nonterminal(nonTerminal)).ToList();
+            return productions.Where(production => production.source.Equals( nonTerminal)).ToList();
         }
 
 

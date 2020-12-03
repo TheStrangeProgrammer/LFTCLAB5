@@ -62,7 +62,7 @@ namespace LFTCLab5
                 Console.WriteLine(string.Join(",", grammar.productions));
             }
             else {
-                Console.WriteLine(string.Join(",", grammar.GetProductionsForNonTerminal(input)));
+                Console.WriteLine(string.Join(",", grammar.GetProductionsForNonTerminal(new Nonterminal(input))));
             }
         }
     }
