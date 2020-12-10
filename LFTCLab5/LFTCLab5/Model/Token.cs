@@ -22,13 +22,6 @@ namespace LFTCLab5
         {
             return name;
         }
-        public virtual bool isTerminal()
-        {
-            return false;
-        }
-        public virtual bool isNonterminal()
-        {
-            return false;
-        }
+
     }
 }

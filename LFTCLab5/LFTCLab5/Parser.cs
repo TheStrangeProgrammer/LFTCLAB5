@@ -16,20 +16,19 @@ namespace LFTCLab5
         public bool Parse(string toParse)
         {
             Configuration config = new Configuration(grammar.startingSymbol);
-            int n = 0;
             while (config.state !="f"&& config.state != "e")
             {
                 if(config.state == "q")
                 {
-                    if (config.beta.Count == 0&&config.position==n+1)
+                    if (config.beta.Count == 0&&config.position==toParse.Length)
                     {
                         Success(config);
                     }
                     else
                     {
-                        if (config.beta.Peek().isTerminal())
+                        if (config.beta.Peek().GetType()==typeof(Nonterminal))
                             Expand(config);
-                        else if (config.beta.Peek().isNonterminal())
+                        else if (config.beta.Peek().ToString()==toParse[config.position].ToString())
                             Advance(config);
                         else
                             MomentaryInsuccess(config);
@@ -39,7 +38,7 @@ namespace LFTCLab5
                 {
                     if (config.state == "b")
                     {
-                        if (config.alpha.Peek().Value.isNonterminal())
+                        if (config.alpha.Peek().Value is Terminal)
                         {
                             Back(config);
                         }
@@ -58,53 +57,55 @@ namespace LFTCLab5
                 return false;
             return true;
         }
-        public void Expand(Configuration configuration)
+        private void Expand(Configuration configuration)
         {
             Production production = grammar.GetProductionsForNonTerminal((Nonterminal)configuration.beta.Peek()).First();
             configuration.beta.Pop();
-            foreach (Token token in production.tokens)
+            foreach (Token token in production.GetReverseTokens())
             {
-                configuration.alpha.Push(new KeyValuePair<int, Token>(1, token));
+                configuration.alpha.Push(new KeyValuePair<int, Token>(0, production.source));
                 configuration.beta.Push(token);
             }
             
             
             
         }
-        public void Advance(Configuration configuration)
+        private void Advance(Configuration configuration)
         {
             configuration.position += 1;
             configuration.alpha.Push(new KeyValuePair<int, Token>(configuration.alpha.Peek().Key, configuration.beta.Pop()));
         }
-        public void MomentaryInsuccess(Configuration configuration)
+        private void MomentaryInsuccess(Configuration configuration)
         {
             configuration.state = "b";
         }
-        public void Back(Configuration configuration)
+        private void Back(Configuration configuration)
         {
             configuration.position -= 1;
             configuration.beta.Push(configuration.alpha.Pop().Value);
         }
-        public void AnotherTry(Configuration configuration)
+        private void AnotherTry(Configuration configuration)
         {
             
-            if (grammar.GetProductionsForNonTerminal((Nonterminal)configuration.beta.Peek()).ElementAtOrDefault(configuration.alpha.Peek().Key + 1) != null) 
+            if (grammar.GetProductionsForNonTerminal((Nonterminal)configuration.alpha.Peek().Value).ElementAtOrDefault(configuration.alpha.Peek().Key + 1) != null) 
             {
+                
+
+                Production production = grammar.GetProductionsForNonTerminal((Nonterminal)configuration.alpha.Peek().Value)[configuration.alpha.Peek().Key + 1];
                 configuration.state = "q";
                 configuration.alpha.Pop();
-                configuration.beta.Pop();
-
-                Production production = grammar.GetProductionsForNonTerminal((Nonterminal)configuration.beta.Peek())[configuration.alpha.Peek().Key + 1];
-                foreach (Token token in production.tokens)
+                for(int i=0;i< production.tokens.Count;i++)
+                    configuration.beta.Pop();
+                foreach (Token token in production.GetReverseTokens())
                 {
-                    configuration.alpha.Push(new KeyValuePair<int, Token>(configuration.alpha.Peek().Key + 1, token));
+                    configuration.alpha.Push(new KeyValuePair<int, Token>(configuration.alpha.Peek().Key + 1, production.source));
                     configuration.beta.Push(token);
                 }
                 
             }
             else
             {
-                if (configuration.position == 1&& configuration.alpha.Peek().Value.Equals(new Token("S")))
+                if (configuration.position == 1&& configuration.alpha.Peek().Value.Equals(grammar.startingSymbol))
                 {
                     configuration.state = "e";
                 }
@@ -116,7 +117,7 @@ namespace LFTCLab5
 
             
         }
-        public void Success(Configuration configuration)
+        private void Success(Configuration configuration)
         {
             configuration.state = "f";
         }

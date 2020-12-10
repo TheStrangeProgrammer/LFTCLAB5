@@ -11,6 +11,7 @@ namespace LFTCLab5
     class Program
     {
         private static Grammar grammar;
+        private static Parser parser;
         static void Help()
         {
 
@@ -19,6 +20,7 @@ namespace LFTCLab5
         {
             grammar = new Grammar();
             grammar.ReadFile();
+            parser = new Parser(grammar);
             bool run=true;
             string input;
             while (run)
@@ -29,7 +31,8 @@ namespace LFTCLab5
                     case "print":
                         GetTypeOfPrint();
                         break;
-                    case "4":
+                    case "parse":
+                        ParsePhrase();
                         break;
                     case "5":
                         break;
@@ -42,6 +45,13 @@ namespace LFTCLab5
                 }
 
             }
+        }
+
+        private static void ParsePhrase()
+        {
+            string input;
+            input = Console.ReadLine();
+            Console.WriteLine(parser.Parse(input));
         }
 
         private static void GetTypeOfPrint()

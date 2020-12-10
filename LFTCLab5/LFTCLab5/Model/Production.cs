@@ -16,6 +16,12 @@ namespace LFTCLab5
             this.source = source;
             this.tokens = tokens;
         }
+        public List<Token> GetReverseTokens()
+        {
+            List<Token> reverseTokens = new List<Token>(tokens);
+            reverseTokens.Reverse();
+            return reverseTokens;
+        }
         public override string ToString()
         {
             string toPrint= source.ToString() + "->";

@@ -16,7 +16,7 @@ namespace LFTCLab5
         public Configuration(Nonterminal startingSymbol)
         {
             state = "q";
-            position = 1;
+            position = 0;
             alpha = new Stack<KeyValuePair<int, Token>>();
             beta = new Stack<Token>(); 
             beta.Push(startingSymbol);
