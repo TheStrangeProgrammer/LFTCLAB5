@@ -61,9 +61,11 @@ namespace LFTCLab5
         {
             Production production = grammar.GetProductionsForNonTerminal((Nonterminal)configuration.beta.Peek()).First();
             configuration.beta.Pop();
+
+            configuration.alpha.Push(new KeyValuePair<int, Token>(0, production.source));
+
             foreach (Token token in production.GetReverseTokens())
             {
-                configuration.alpha.Push(new KeyValuePair<int, Token>(0, production.source));
                 configuration.beta.Push(token);
             }
             
@@ -89,16 +91,17 @@ namespace LFTCLab5
             
             if (grammar.GetProductionsForNonTerminal((Nonterminal)configuration.alpha.Peek().Value).ElementAtOrDefault(configuration.alpha.Peek().Key + 1) != null) 
             {
-                
 
+                Production oldProduction = grammar.GetProductionsForNonTerminal((Nonterminal)configuration.alpha.Peek().Value)[configuration.alpha.Peek().Key];
                 Production production = grammar.GetProductionsForNonTerminal((Nonterminal)configuration.alpha.Peek().Value)[configuration.alpha.Peek().Key + 1];
                 configuration.state = "q";
                 configuration.alpha.Pop();
-                for(int i=0;i< production.tokens.Count;i++)
+                for(int i=0;i< oldProduction.tokens.Count;i++)
                     configuration.beta.Pop();
+
+                configuration.alpha.Push(new KeyValuePair<int, Token>(configuration.alpha.Peek().Key + 1, production.source));
                 foreach (Token token in production.GetReverseTokens())
                 {
-                    configuration.alpha.Push(new KeyValuePair<int, Token>(configuration.alpha.Peek().Key + 1, production.source));
                     configuration.beta.Push(token);
                 }
                 
