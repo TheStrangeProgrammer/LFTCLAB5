@@ -13,9 +13,10 @@ namespace LFTCLab5
         {
             this.grammar = grammar;
         }
-        public Configuration Parse(string toParse)
+        public List<Configuration> Parse(string toParse)
         {
             Configuration config = new Configuration(grammar.startingSymbol);
+            List <Configuration> configs = new List<Configuration>() { config };
             while (config.state !="f"&& config.state != "e")
             {
                 if(config.state == "q")
@@ -23,16 +24,25 @@ namespace LFTCLab5
                     if (config.beta.Count == 0&&config.position==toParse.Length)
                     {
                         Success(config);
-                        return config;
+                        configs.Add(config);
                     }
                     else
                     {
-                        if (config.beta.Peek().GetType()==typeof(Nonterminal))
+                        if (config.beta.Peek().GetType() == typeof(Nonterminal))
+                        {
                             Expand(config);
-                        else if (config.beta.Peek().ToString()==toParse[config.position].ToString())
+                            configs.Add(new Configuration(config));
+                        }
+                        else if (config.beta.Peek().ToString() == toParse[config.position].ToString())
+                        {
                             Advance(config);
+                            
+                        }
                         else
+                        {
                             MomentaryInsuccess(config);
+                            
+                        }
                     }
                 }
                 else
@@ -42,10 +52,12 @@ namespace LFTCLab5
                         if (config.alpha.Peek().Value is Terminal)
                         {
                             Back(config);
+                            
                         }
                         else
                         {
                             AnotherTry(config);
+                            
                         }
 
                     }
@@ -55,8 +67,8 @@ namespace LFTCLab5
             }
 
             if (config.state == "e")
-                return config;
-            return config;
+                configs.Add(config);
+            return configs;
         }
         private void Expand(Configuration configuration)
         {
@@ -96,11 +108,11 @@ namespace LFTCLab5
                 Production oldProduction = grammar.GetProductionsForNonTerminal((Nonterminal)configuration.alpha.Peek().Value)[configuration.alpha.Peek().Key];
                 Production production = grammar.GetProductionsForNonTerminal((Nonterminal)configuration.alpha.Peek().Value)[configuration.alpha.Peek().Key + 1];
                 configuration.state = "q";
-                configuration.alpha.Pop();
+                KeyValuePair<int, Token> newPair= configuration.alpha.Pop();
                 for(int i=0;i< oldProduction.tokens.Count;i++)
                     configuration.beta.Pop();
 
-                configuration.alpha.Push(new KeyValuePair<int, Token>(configuration.alpha.Peek().Key + 1, production.source));
+                configuration.alpha.Push(new KeyValuePair<int, Token>(newPair.Key + 1, production.source));
                 foreach (Token token in production.GetReverseTokens())
                 {
                     configuration.beta.Push(token);
@@ -109,7 +121,7 @@ namespace LFTCLab5
             }
             else
             {
-                if (configuration.position == 1&& configuration.alpha.Peek().Value.Equals(grammar.startingSymbol))
+                if (configuration.position == 0 && configuration.alpha.Peek().Value.Equals(grammar.startingSymbol))
                 {
                     configuration.state = "e";
                 }

@@ -1,2 +1,2 @@
-﻿S->bS|aA|c
+﻿S->c|dA|aSbS
 A->p

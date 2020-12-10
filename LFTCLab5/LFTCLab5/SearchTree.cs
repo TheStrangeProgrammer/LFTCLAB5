@@ -6,7 +6,15 @@ using System.Threading.Tasks;
 
 namespace LFTCLab5
 {
-    class SearchTree
+    public class SearchTree
     {
+        
+        public static string Output(Stack<KeyValuePair<int, Token>> alpha)
+        {
+
+            
+
+            return null;
+        }
     }
 }

@@ -21,5 +21,23 @@ namespace LFTCLab5
             beta = new Stack<Token>(); 
             beta.Push(startingSymbol);
         }
+        public Configuration(Configuration config)
+        {
+            state = config.state;
+            position = config.position;
+            alpha = config.alpha;
+            beta = config.beta;
+        }
+        public string AlphaToString()
+        {
+            string toPrint = "";
+            foreach(KeyValuePair<int, Token> pair in alpha)
+            {
+                toPrint += pair.Value.ToString();
+                if(pair.Value.GetType()==typeof(Nonterminal))
+                    toPrint += pair.Key.ToString();
+            }
+            return toPrint;
+        }
     }
 }

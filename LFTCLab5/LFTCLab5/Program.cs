@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,11 +52,12 @@ namespace LFTCLab5
         {
             string input;
             input = Console.ReadLine();
-            Configuration config = parser.Parse(input);
+            List<Configuration> configs = parser.Parse(input);
+            Configuration config = configs[configs.Count-1];
             if (config.state == "f")
             {
                 Console.WriteLine("Accepted");
-                Console.WriteLine(SearchTree.Output(config.alpha));
+                File.WriteAllText(@"D:\faculta\s1\Limbaje formale si tehnici de compilare\LFTCLAB5\LFTCLab5\LFTCLab5\out.txt",config.AlphaToString());
             }
             else
             {
