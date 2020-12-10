@@ -13,7 +13,7 @@ namespace LFTCLab5
         {
             this.grammar = grammar;
         }
-        public bool Parse(string toParse)
+        public Configuration Parse(string toParse)
         {
             Configuration config = new Configuration(grammar.startingSymbol);
             while (config.state !="f"&& config.state != "e")
@@ -23,6 +23,7 @@ namespace LFTCLab5
                     if (config.beta.Count == 0&&config.position==toParse.Length)
                     {
                         Success(config);
+                        return config;
                     }
                     else
                     {
@@ -54,8 +55,8 @@ namespace LFTCLab5
             }
 
             if (config.state == "e")
-                return false;
-            return true;
+                return config;
+            return config;
         }
         private void Expand(Configuration configuration)
         {

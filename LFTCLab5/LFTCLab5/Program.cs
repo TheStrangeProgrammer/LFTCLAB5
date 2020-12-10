@@ -51,7 +51,16 @@ namespace LFTCLab5
         {
             string input;
             input = Console.ReadLine();
-            Console.WriteLine(parser.Parse(input));
+            Configuration config = parser.Parse(input);
+            if (config.state == "f")
+            {
+                Console.WriteLine("Accepted");
+                Console.WriteLine(SearchTree.Output(config.alpha));
+            }
+            else
+            {
+                Console.WriteLine("Rejected");
+            }
         }
 
         private static void GetTypeOfPrint()
